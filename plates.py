@@ -1,7 +1,10 @@
 #!/usr/bin/python
 import enchant
+import glob
+import os
 import string
 import sys
+import uuid
 
 from joblib import Parallel, delayed
 import multiprocessing
@@ -24,17 +27,16 @@ def convert_plate(plate):
       break
   return real_plate
 
-
 print "Welcome to plate finder (running with " + str(num_cores) + " cores)"
 
 dict = enchant.Dict("en_GB")
 count = 0
 found = 0
-output = "plates.txt"
-plates = open (output, "w")
-
+output = "plates"
+ext = ".txt"
 
 def process_plate(c1):
+  out = open(output + "-" + str(uuid.uuid4()) + ext, "w")
   for c2 in chars_pre:
     for c34 in nums_used:
       for c5 in chars_rnd:
@@ -44,22 +46,32 @@ def process_plate(c1):
             if dict.check(plate):
               new_plate = convert_plate(plate)
               print plate + " becomes " + new_plate
-              plates.write(new_plate)
-              plates.write("\n")
+              new_plate+="\n"
+              out.write(new_plate)
+  out.close()
 
-Parallel(n_jobs=num_cores)(delayed(process_plate)(i) for i in chars_pre)
+content = Parallel(n_jobs=num_cores)(delayed(process_plate)(i) for i in chars_pre)
 
-plates.close()
+filenames = glob.glob(output + "-*" + ext)
+print filenames
+with open(output + ext, 'w') as outfile:
+    for fname in filenames:
+        with open(fname) as infile:
+            for line in infile:
+                outfile.write(line)
+
+for file in filenames:
+  os.remove(file)
 
 print "Sorting alphabetically"
-
-original = open(output, "r")
+original = open(output + ext, "r")
 lineList = original.readlines()
 original.close()
-out = open(output, "w")
+out = open(output + ext, "w")
 
 for line in sorted(lineList):
-  print(line.rstrip())
+  print line
+  out.write(line.rstrip())
   out.write("\n")
 
 out.close()
