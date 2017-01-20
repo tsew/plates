@@ -51,7 +51,7 @@ original.close()
 out = open(output, "w")
 
 for line in sorted(lineList):
-  print(line.rstrip())
+  out.write(line.rstrip())
   out.write("\n")
 
 out.close()
