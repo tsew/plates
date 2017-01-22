@@ -41,6 +41,21 @@ for c1 in chars_pre:
               plates.write(new_plate)
               plates.write("\n")
 
+for c1 in chars_pre:
+  for c2 in chars_pre:
+    for c34 in nums_used:
+      for c5 in chars_rnd:
+        for c6 in chars_rnd:
+          for c7 in chars_rnd:
+            plate1 = c1 + c2 + c34
+            plate2 = c5 + c6 + c7
+            if dict.check(plate1) and dict.check(plate2):
+              new_plate = convert_plate(plate1)
+              print plate1 + " " + plate2  + " becomes " + new_plate + " " + plate2
+              plates.write(new_plate + plate2)
+              plates.write("\n")
+
+
 plates.close()
 
 print "Sorting alphabetically"
