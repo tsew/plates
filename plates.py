@@ -17,7 +17,7 @@ chars_pre = chars_rnd.replace("Z", "")
 
 nums = "OIZSB"
 no_s = "01258"
-nums_used = [ "SI", "OZ", "SZ", "OA", "SA", "0S", "SS", "OT", "ST", "OB", "SB", "OG", "SG", "IO", "GO", "II", "IZ", "GZ", "IA", "GA", "IS", "GS", "IG", "GG", "IT", "GG" ]
+nums_used = [ "SI", "OZ", "SZ", "OA", "SA", "0S", "SS", "OT", "ST", "OB", "SB", "OG", "SG", "IO", "GO", "II", "IZ", "GZ", "IA", "GA", "IS", "GS", "IG", "GG", "IT", "GT" ]
 nums_conv = [ "51", "02", "52", "04", "54", "05", "55", "07", "57", "08", "58", "06", "56", "10", "60", "11", "12", "62", "14", "64", "15", "65", "16", "66", "17", "67" ]
 
 def convert_plate(plate):
